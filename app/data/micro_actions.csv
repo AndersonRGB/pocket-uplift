@@ -1,1 +1,33 @@
-action_id,title,category,minutes,energy,impact,notes
+action_id,title,category,minutes,energy,impact,tags,notes
+A01,Box breathing 4-4-4-4,calm,5,1,4,calm|breath|quick,Follow a slow 4 count pattern
+A02,Shoulder roll reset,calm,3,1,3,calm|quick,Release tension in neck and shoulders
+A03,Five minute tidy,focus,5,2,3,focus|quick,Clear a small space
+A04,Single task sprint,focus,10,3,4,focus|quick,Set a timer and do one task
+A05,Short walk outside,movement,10,2,4,movement|outdoors|uplift,Move and get fresh air
+A06,Stretch and reset,movement,7,2,3,movement|calm,Full body stretch
+A07,Hydration check,wellbeing,2,1,2,quick|uplift,Drink a glass of water
+A08,Gratitude list of three,gratitude,6,1,4,gratitude|uplift|calm,Write three good things
+A09,Text a friend,social,5,1,3,social|uplift,Send a kind message
+A10,Desk posture reset,focus,4,1,2,focus|quick,Adjust posture and screen height
+A11,Playlist reset,creative,8,1,3,creative|uplift,Play one uplifting song
+A12,Mini journal check-in,reflect,8,1,4,gratitude|calm,Write a few sentences
+A13,Plan top three tasks,focus,6,1,3,focus|quick,Choose the top three priorities
+A14,Make a healthy snack,wellbeing,10,2,3,quick|uplift,Prepare something nourishing
+A15,Two minute meditation,calm,2,1,3,calm|breath|quick,Close eyes and breathe
+A16,Walk and notice five things,outdoors,12,2,4,outdoors|uplift|calm,Observe details around you
+A17,Send gratitude note,gratitude,7,1,4,gratitude|social|uplift,Thank someone today
+A18,Creative doodle,creative,10,2,3,creative|calm,Sketch freely on paper
+A19,Declutter one drawer,focus,15,3,4,focus|movement,Organise a small space
+A20,Light bodyweight set,movement,8,3,4,movement|uplift,Do squats and stretches
+A21,Read a page of notes,focus,6,1,2,focus|quick,Review one page of material
+A22,Make your bed,wellbeing,3,1,2,quick|uplift,Quick win to start fresh
+A23,Open a window,outdoors,2,1,2,outdoors|quick,Let fresh air in
+A24,Tea break ritual,calm,8,1,3,calm|uplift,Prepare a warm drink
+A25,Inbox zero sprint,focus,12,2,4,focus|quick,Clear ten emails
+A26,Positive self talk,calm,4,1,3,calm|uplift,Repeat a supportive phrase
+A27,Micro learning video,creative,12,1,3,creative|focus,Watch a short tutorial
+A28,Step count burst,movement,6,3,3,movement|uplift,Walk quickly for a few minutes
+A29,Stretch wrists and hands,calm,4,1,2,calm|quick,Reduce screen strain
+A30,Write tomorrow plan,focus,8,1,3,focus|calm,Outline tomorrow in bullets
+A31,Sunlight pause,outdoors,5,1,3,outdoors|uplift|quick,Stand in daylight
+A32,Listen to calming audio,calm,10,1,4,calm|breath,Play a guided track
