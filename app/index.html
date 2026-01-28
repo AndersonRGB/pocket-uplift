@@ -9,24 +9,78 @@
   </head>
   <body>
     <header class="site-header">
-      <h1>Pocket Uplift</h1>
-      <p class="tagline">Small actions. Meaningful uplift.</p>
+      <div>
+        <p class="eyebrow">Daily Check-in</p>
+        <h1>Pocket Uplift</h1>
+        <p class="tagline">Small actions. Meaningful uplift.</p>
+      </div>
     </header>
 
     <main class="layout">
       <section id="checkin" class="card">
-        <h2>Check-in</h2>
-        <div id="checkin-root">Check-in UI placeholder</div>
+        <h2>How are you right now?</h2>
+
+        <div class="slider-group">
+          <label for="mood">Mood</label>
+          <div class="slider-row">
+            <input id="mood" type="range" min="1" max="5" value="3" />
+            <span id="mood-value" class="slider-value">3</span>
+          </div>
+          <div class="slider-scale">
+            <span>Low</span>
+            <span>High</span>
+          </div>
+        </div>
+
+        <div class="slider-group">
+          <label for="energy">Energy</label>
+          <div class="slider-row">
+            <input id="energy" type="range" min="1" max="5" value="3" />
+            <span id="energy-value" class="slider-value">3</span>
+          </div>
+          <div class="slider-scale">
+            <span>Low</span>
+            <span>High</span>
+          </div>
+        </div>
+
+        <div class="slider-group">
+          <label for="stress">Stress</label>
+          <div class="slider-row">
+            <input id="stress" type="range" min="1" max="5" value="3" />
+            <span id="stress-value" class="slider-value">3</span>
+          </div>
+          <div class="slider-scale">
+            <span>Low</span>
+            <span>High</span>
+          </div>
+        </div>
+
+        <div class="chip-area">
+          <p class="chip-title">What would help most?</p>
+          <div class="chip-row" id="context-chips">
+            <button type="button" class="chip" data-tag="calm" aria-pressed="false">Calm</button>
+            <button type="button" class="chip" data-tag="focus" aria-pressed="false">Focus</button>
+            <button type="button" class="chip" data-tag="social" aria-pressed="false">Social</button>
+            <button type="button" class="chip" data-tag="movement" aria-pressed="false">Movement</button>
+            <button type="button" class="chip" data-tag="outdoors" aria-pressed="false">Outdoors</button>
+            <button type="button" class="chip" data-tag="creative" aria-pressed="false">Creative</button>
+            <button type="button" class="chip" data-tag="gratitude" aria-pressed="false">Gratitude</button>
+            <button type="button" class="chip" data-tag="quick" aria-pressed="false">Quick</button>
+          </div>
+        </div>
+
+        <div class="actions-row">
+          <button id="recommend-btn" class="primary">Get top 3</button>
+          <button id="reset-btn" class="ghost" type="button">Reset</button>
+        </div>
       </section>
 
       <section id="recommendations" class="card">
-        <h2>Recommendations</h2>
-        <div id="recommend-root">Recommendations placeholder</div>
-      </section>
-
-      <section id="history" class="card">
-        <h2>History</h2>
-        <div id="history-root">History placeholder</div>
+        <h2>Top 3 recommendations</h2>
+        <div id="recommend-root" class="results">
+          <p class="muted">Complete your check-in to see recommendations.</p>
+        </div>
       </section>
     </main>
 
