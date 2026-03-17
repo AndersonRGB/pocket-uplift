@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" role="img" aria-labelledby="title">
+  <title>Pocket Uplift icon</title>
+  <rect width="192" height="192" rx="36" fill="#1d6b50" />
+  <circle cx="96" cy="96" r="64" fill="#f7f1e6" />
+  <path
+    d="M70 111c8 10 18 15 26 15 13 0 24-10 27-25H96V81c0-8 5-13 12-13 5 0 10 2 14 7l12-10c-7-9-17-14-28-14-20 0-36 14-36 34v16H54v14h16z"
+    fill="#1d6b50"
+  />
+</svg>
