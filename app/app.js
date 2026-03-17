@@ -295,7 +295,9 @@ async function registerServiceWorker() {
   }
 
   try {
-    await navigator.serviceWorker.register("../pwa/service-worker.js");
+    await navigator.serviceWorker.register("../pwa/service-worker.js", {
+      scope: "../",
+    });
   } catch (error) {
     console.warn("Service worker registration failed", error);
   }
