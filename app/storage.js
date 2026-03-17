@@ -1,40 +1,107 @@
-const STORAGE_KEY = "pocket-uplift-state";
+const STORAGE_KEYS = {
+  draft: "pocket-uplift-draft",
+  history: "pocket-uplift-history",
+  settings: "pocket-uplift-settings",
+};
 
-function safeParse(value) {
-  if (!value) {
-    return null;
-  }
+const DEFAULT_SETTINGS = {
+  dyslexiaFont: false,
+  highContrast: false,
+};
 
+function readJson(key, fallbackValue) {
   try {
-    return JSON.parse(value);
+    const value = localStorage.getItem(key);
+    return value ? JSON.parse(value) : fallbackValue;
   } catch (error) {
-    console.warn("Unable to parse stored state", error);
-    return null;
+    console.warn(`Unable to read ${key}`, error);
+    return fallbackValue;
   }
 }
 
-function saveState(state) {
+function writeJson(key, value) {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    localStorage.setItem(key, JSON.stringify(value));
   } catch (error) {
-    console.warn("Unable to save state", error);
+    console.warn(`Unable to write ${key}`, error);
   }
 }
 
-function loadState() {
-  return safeParse(localStorage.getItem(STORAGE_KEY));
+function loadDraft() {
+  return readJson(STORAGE_KEYS.draft, null);
 }
 
-function resetState() {
-  try {
-    localStorage.removeItem(STORAGE_KEY);
-  } catch (error) {
-    console.warn("Unable to reset state", error);
-  }
+function saveDraft(draft) {
+  writeJson(STORAGE_KEYS.draft, draft);
+}
+
+function clearDraft() {
+  localStorage.removeItem(STORAGE_KEYS.draft);
+}
+
+function loadHistory() {
+  return readJson(STORAGE_KEYS.history, []);
+}
+
+function saveHistory(history) {
+  writeJson(STORAGE_KEYS.history, history.slice(0, 30));
+}
+
+function appendHistoryEntry(entry) {
+  const history = loadHistory();
+  history.unshift(entry);
+  saveHistory(history);
+  return history.slice(0, 30);
+}
+
+function recordFeedback(entryId, actionId, feedback) {
+  const history = loadHistory().map((entry) => {
+    if (entry.id !== entryId) {
+      return entry;
+    }
+
+    return {
+      ...entry,
+      feedback: {
+        ...entry.feedback,
+        [actionId]: feedback,
+      },
+    };
+  });
+
+  saveHistory(history);
+  return history;
+}
+
+function loadSettings() {
+  return {
+    ...DEFAULT_SETTINGS,
+    ...readJson(STORAGE_KEYS.settings, {}),
+  };
+}
+
+function saveSettings(settings) {
+  writeJson(STORAGE_KEYS.settings, {
+    ...DEFAULT_SETTINGS,
+    ...settings,
+  });
+}
+
+function resetAllData() {
+  localStorage.removeItem(STORAGE_KEYS.draft);
+  localStorage.removeItem(STORAGE_KEYS.history);
+  localStorage.removeItem(STORAGE_KEYS.settings);
 }
 
 window.appStorage = {
-  saveState,
-  loadState,
-  resetState,
+  appendHistoryEntry,
+  clearDraft,
+  loadDraft,
+  loadHistory,
+  loadSettings,
+  recordFeedback,
+  resetAllData,
+  saveDraft,
+  saveHistory,
+  saveSettings,
 };

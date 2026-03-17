@@ -1,59 +1,108 @@
-function recommendTop3(actions, context, limit = 3) {
-  if (!Array.isArray(actions) || actions.length === 0) {
+function scoreForLowState(value) {
+  return 6 - Number(value || 3);
+}
+
+function makeContextBadge(context) {
+  if (!context || context === "any") {
+    return "";
+  }
+
+  return `fits ${context}`;
+}
+
+function addBadge(badges, badge) {
+  if (badge && !badges.includes(badge)) {
+    badges.push(badge);
+  }
+}
+
+function scoreAction(action, checkin) {
+  const badges = [];
+  let score = 0;
+
+  const lowMoodWeight = scoreForLowState(checkin.mood);
+  const lowEnergyWeight = scoreForLowState(checkin.energy);
+  const stressWeight = Number(checkin.stress || 3);
+  const context = checkin.context || "any";
+
+  score += action.goodForMood * lowMoodWeight;
+  score += action.goodForEnergy * lowEnergyWeight;
+  score += action.goodForStress * stressWeight;
+
+  if (action.goodForStress >= 4 && checkin.stress >= 3) {
+    addBadge(badges, "good for stress");
+  }
+
+  if (action.goodForEnergy >= 4 && checkin.energy <= 3) {
+    addBadge(badges, "energy boost");
+  }
+
+  if (action.goodForMood >= 4 && checkin.mood <= 3) {
+    addBadge(badges, "gentle mood lift");
+  }
+
+  if (action.tags.includes("quiet")) {
+    score += 2;
+    addBadge(badges, "quiet");
+  }
+
+  if (action.durationMin <= 5) {
+    score += 2;
+  } else if (action.durationMin <= 10) {
+    score += 1;
+  }
+  addBadge(badges, `${action.durationMin} min`);
+
+  if (context !== "any" && action.contexts.includes(context)) {
+    score += 5;
+    addBadge(badges, makeContextBadge(context));
+  }
+
+  if (checkin.energy >= 4 && action.tags.includes("movement")) {
+    score += 2;
+  }
+
+  if (checkin.stress >= 4 && action.tags.includes("breathing")) {
+    score += 3;
+  }
+
+  if (checkin.context === "study" && action.tags.includes("study")) {
+    addBadge(badges, "fits study");
+  }
+
+  if (checkin.context === "sleep" && action.tags.includes("sleep")) {
+    addBadge(badges, "fits sleep");
+  }
+
+  if (checkin.context === "social" && action.tags.includes("social")) {
+    addBadge(badges, "fits social");
+  }
+
+  if (checkin.context === "outdoors" && action.tags.includes("outdoors")) {
+    addBadge(badges, "fits outdoors");
+  }
+
+  return {
+    ...action,
+    score,
+    whyBadges: badges.slice(0, 4),
+  };
+}
+
+function recommendTop3(actions, checkin, limit = 3) {
+  if (!Array.isArray(actions) || !actions.length) {
     return [];
   }
 
-  const mood = Number(context.mood || 3);
-  const energy = Number(context.energy || 3);
-  const stress = Number(context.stress || 3);
-  const selectedTags = new Set(context.tags || []);
-
-  const results = actions.map((action) => {
-    const reasons = [];
-    let score = 0;
-
-    const actionTags = new Set(action.tags || []);
-    selectedTags.forEach((tag) => {
-      if (actionTags.has(tag)) {
-        score += 2;
-        reasons.push(`Matches ${tag}`);
+  return actions
+    .map((action) => scoreAction(action, checkin))
+    .sort((left, right) => {
+      if (right.score !== left.score) {
+        return right.score - left.score;
       }
-    });
 
-    if (energy <= 2 && action.energy <= 2) {
-      score += 2;
-      reasons.push("Low-energy friendly");
-    } else if (energy >= 4 && action.energy >= 3) {
-      score += 2;
-      reasons.push("Uses your energy");
-    }
-
-    if (stress >= 4 && (actionTags.has("calm") || actionTags.has("breath"))) {
-      score += 2;
-      reasons.push("Stress relief");
-    }
-
-    if (mood <= 2 && (actionTags.has("uplift") || actionTags.has("gratitude"))) {
-      score += 2;
-      reasons.push("Mood boost");
-    }
-
-    if (action.minutes <= 10) {
-      score += 1;
-      reasons.push("Quick to do");
-    }
-
-    score += action.impact * 0.3;
-
-    return {
-      action,
-      score,
-      reasons: Array.from(new Set(reasons)).slice(0, 3),
-    };
-  });
-
-  return results
-    .sort((a, b) => b.score - a.score)
+      return left.durationMin - right.durationMin;
+    })
     .slice(0, limit);
 }
 
