@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Support | Pocket Uplift</title>
+    <link rel="manifest" href="../pwa/manifest.json" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="support-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header">
+      <div class="header-copy">
+        <p class="eyebrow">Pocket Uplift</p>
+        <h1>Support and signposting</h1>
+        <p class="tagline">
+          Pocket Uplift is a non-clinical wellbeing tool. It does not provide diagnosis, treatment,
+          or crisis support.
+        </p>
+      </div>
+      <nav class="header-actions" aria-label="Primary">
+        <a class="nav-link" href="index.html">Back to check-in</a>
+      </nav>
+    </header>
+
+    <main id="main-content" class="page-shell">
+      <section class="card support-stack">
+        <article class="support-card">
+          <h2>When to use this app</h2>
+          <p>
+            Use Pocket Uplift for short daily check-ins, small wellbeing actions, and gentle
+            routines that fit student life. It is designed to support reflection, not to assess
+            mental health risk.
+          </p>
+        </article>
+
+        <div class="support-layout">
+          <article class="support-card">
+            <h2>University support</h2>
+            <p>Contact University of Roehampton student wellbeing and support services.</p>
+            <ul class="support-list">
+              <li>Use the university student support portal or wellbeing pages.</li>
+              <li>Speak to your personal tutor or student support adviser if study is affected.</li>
+              <li>Reach out early if stress, low mood, or sleep problems are building up.</li>
+            </ul>
+          </article>
+
+          <article class="support-card">
+            <h2>NHS 111</h2>
+            <p>
+              For urgent medical advice that is not a life-threatening emergency, use
+              <a class="inline-link" href="https://111.nhs.uk">NHS 111 online</a>
+              or call 111 in the UK.
+            </p>
+          </article>
+
+          <article class="support-card">
+            <h2>Samaritans</h2>
+            <p>
+              If you need someone to talk to right now, contact Samaritans free on 116 123 or visit
+              <a class="inline-link" href="https://www.samaritans.org">samaritans.org</a>.
+            </p>
+          </article>
+
+          <article class="support-card">
+            <h2>Emergency support</h2>
+            <p>
+              If there is immediate danger to you or someone else, call 999 now or go to your
+              nearest A&amp;E.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="storage.js"></script>
+    <script>
+      (function applyStoredSettings() {
+        const settings = window.appStorage.loadSettings();
+        document.body.classList.toggle("high-contrast", Boolean(settings.highContrast));
+        document.body.classList.toggle("dyslexia-font", Boolean(settings.dyslexiaFont));
+      })();
+    </script>
+  </body>
+</html>

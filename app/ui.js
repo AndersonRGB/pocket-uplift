@@ -1,0 +1,143 @@
+function createBadgeMarkup(items) {
+  return items
+    .map((item) => `<span class="badge">${item}</span>`)
+    .join("");
+}
+
+function formatShortDate(value) {
+  return new Date(value).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+  });
+}
+
+function renderRecommendations(container, results, feedbackMap) {
+  if (!results.length) {
+    container.innerHTML =
+      '<p class="empty-state">Complete your check-in to see recommendations.</p>';
+    return;
+  }
+
+  container.innerHTML = results
+    .map((result) => {
+      const feedback = feedbackMap[result.id] || "";
+      const didItClass = feedback === "did" ? "feedback-button is-active" : "feedback-button";
+      const skipClass = feedback === "skip" ? "feedback-button is-active" : "feedback-button";
+
+      return `
+        <article class="result-card">
+          <div class="result-header">
+            <div>
+              <h3>${result.title}</h3>
+              <p class="muted">${result.category}</p>
+            </div>
+            <span class="duration-pill">${result.durationMin} min</span>
+          </div>
+          <div class="badge-row">${createBadgeMarkup(result.whyBadges)}</div>
+          <p class="result-note">${result.note}</p>
+          <div class="feedback-row">
+            <button
+              class="${didItClass}"
+              type="button"
+              data-feedback="did"
+              data-action-id="${result.id}"
+            >
+              Did it
+            </button>
+            <button
+              class="${skipClass}"
+              type="button"
+              data-feedback="skip"
+              data-action-id="${result.id}"
+            >
+              Skip
+            </button>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function renderProgress(container, summary) {
+  if (!summary.totalCheckins) {
+    container.innerHTML =
+      '<p class="empty-state">Your recent activity will appear here after your first check-in.</p>';
+    return;
+  }
+
+  const trendMarkup = summary.trend
+    .map((day) => {
+      const width = `${Math.max(day.averageMood, 0) * 20}%`;
+      return `
+        <div class="trend-bar">
+          <span>${day.label}</span>
+          <span class="trend-track"><span class="trend-fill" style="width: ${width}"></span></span>
+          <strong>${day.averageMood.toFixed(1)}</strong>
+        </div>
+      `;
+    })
+    .join("");
+
+  const historyMarkup = summary.recent
+    .map((entry) => {
+      return `
+        <div class="history-item">
+          <div>
+            <strong>${formatShortDate(entry.createdAt)}</strong>
+            <p class="muted">Mood ${entry.mood}/5 · Energy ${entry.energy}/5 · Stress ${entry.stress}/5</p>
+          </div>
+          <strong>${entry.contextLabel}</strong>
+        </div>
+      `;
+    })
+    .join("");
+
+  container.innerHTML = `
+    <div class="progress-grid">
+      <article class="info-tile">
+        <div class="info-header">
+          <h3>Current streak</h3>
+          <span class="metric-value">${summary.streak} day${summary.streak === 1 ? "" : "s"}</span>
+        </div>
+        <p class="metric-note">Counts days with at least one check-in.</p>
+      </article>
+      <article class="info-tile">
+        <div class="info-header">
+          <h3>Total check-ins</h3>
+          <span class="metric-value">${summary.totalCheckins}</span>
+        </div>
+        <p class="metric-note">A simple record stored only on this device.</p>
+      </article>
+    </div>
+    <article class="info-tile">
+      <h3>7-day mood view</h3>
+      <div class="trend-row">${trendMarkup}</div>
+    </article>
+    <article class="info-tile">
+      <h3>Recent check-ins</h3>
+      <div class="history-list">${historyMarkup}</div>
+    </article>
+  `;
+}
+
+function setStatus(element, message) {
+  element.textContent = message;
+}
+
+function setSliderOutput(input, output) {
+  output.textContent = input.value;
+}
+
+function applySettingsToDocument(settings) {
+  document.body.classList.toggle("high-contrast", Boolean(settings.highContrast));
+  document.body.classList.toggle("dyslexia-font", Boolean(settings.dyslexiaFont));
+}
+
+window.appUi = {
+  applySettingsToDocument,
+  renderProgress,
+  renderRecommendations,
+  setSliderOutput,
+  setStatus,
+};
