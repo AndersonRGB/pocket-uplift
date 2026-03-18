@@ -14,7 +14,7 @@ function formatShortDate(value) {
 function renderRecommendations(container, results, feedbackMap) {
   if (!results.length) {
     container.innerHTML =
-      '<p class="empty-state">Complete a quick check-in and Pocket Uplift will suggest three small actions that match your day.</p>';
+      '<p class="empty-state">Start with a quick check-in and Pocket Uplift will suggest three small actions with simple reasons for why they fit.</p>';
     return;
   }
 
@@ -42,16 +42,18 @@ function renderRecommendations(container, results, feedbackMap) {
               type="button"
               data-feedback="did"
               data-action-id="${result.id}"
+              aria-pressed="${feedback === "did"}"
             >
-              Did it
+              Mark as done
             </button>
             <button
               class="${skipClass}"
               type="button"
               data-feedback="skip"
               data-action-id="${result.id}"
+              aria-pressed="${feedback === "skip"}"
             >
-              Skip
+              Skip for now
             </button>
           </div>
         </article>

@@ -55,17 +55,30 @@
       <div class="layout">
         <section class="card" aria-labelledby="checkin-title">
           <h2 id="checkin-title">Daily check-in</h2>
-          <form id="checkin-form" class="stack">
+          <form id="checkin-form" class="stack" aria-describedby="checkin-help">
+            <p id="checkin-help" class="muted compact">
+              Use the sliders and one context button to get three suggestions that fit your current
+              state.
+            </p>
             <div class="slider-group">
               <div class="label-row">
                 <label for="mood">Mood</label>
                 <output id="mood-value" for="mood">3</output>
               </div>
-              <input id="mood" name="mood" type="range" min="1" max="5" value="3" />
+              <input
+                id="mood"
+                name="mood"
+                type="range"
+                min="1"
+                max="5"
+                value="3"
+                aria-describedby="mood-scale"
+              />
               <div class="slider-scale" aria-hidden="true">
                 <span>Low</span>
                 <span>High</span>
               </div>
+              <span id="mood-scale" class="sr-only">Mood scale from 1 low to 5 high</span>
             </div>
 
             <div class="slider-group">
@@ -73,11 +86,20 @@
                 <label for="energy">Energy</label>
                 <output id="energy-value" for="energy">3</output>
               </div>
-              <input id="energy" name="energy" type="range" min="1" max="5" value="3" />
+              <input
+                id="energy"
+                name="energy"
+                type="range"
+                min="1"
+                max="5"
+                value="3"
+                aria-describedby="energy-scale"
+              />
               <div class="slider-scale" aria-hidden="true">
                 <span>Low</span>
                 <span>High</span>
               </div>
+              <span id="energy-scale" class="sr-only">Energy scale from 1 low to 5 high</span>
             </div>
 
             <div class="slider-group">
@@ -85,11 +107,20 @@
                 <label for="stress">Stress</label>
                 <output id="stress-value" for="stress">3</output>
               </div>
-              <input id="stress" name="stress" type="range" min="1" max="5" value="3" />
+              <input
+                id="stress"
+                name="stress"
+                type="range"
+                min="1"
+                max="5"
+                value="3"
+                aria-describedby="stress-scale"
+              />
               <div class="slider-scale" aria-hidden="true">
                 <span>Low</span>
                 <span>High</span>
               </div>
+              <span id="stress-scale" class="sr-only">Stress scale from 1 low to 5 high</span>
             </div>
 
             <fieldset class="context-fieldset">
@@ -115,10 +146,14 @@
             </fieldset>
 
             <div class="button-row">
-              <button id="recommend-btn" class="button-primary" type="submit">Get top 3</button>
-              <button id="reset-btn" class="button-secondary" type="button">Reset data</button>
+              <button id="recommend-btn" class="button-primary" type="submit">
+                Get top 3 suggestions
+              </button>
+              <button id="reset-btn" class="button-secondary" type="button">
+                Clear local data
+              </button>
             </div>
-            <p id="status-message" class="status-text" aria-live="polite"></p>
+            <p id="status-message" class="status-text" aria-live="polite" role="status"></p>
           </form>
         </section>
 

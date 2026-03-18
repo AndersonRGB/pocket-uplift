@@ -261,6 +261,15 @@ function handleSubmit(event) {
 }
 
 function handleReset() {
+  const confirmed = window.confirm(
+    "This will remove your local Pocket Uplift data from this device. Continue?"
+  );
+
+  if (!confirmed) {
+    window.appUi.setStatus(elements.statusMessage, "Reset cancelled. Your local data is unchanged.");
+    return;
+  }
+
   window.appStorage.resetAllData();
   state.history = [];
   state.currentEntryId = null;
@@ -276,7 +285,10 @@ function handleReset() {
   syncSettingsToUi();
   renderResults();
   renderProgress();
-  window.appUi.setStatus(elements.statusMessage, "Local Pocket Uplift data has been reset.");
+  window.appUi.setStatus(
+    elements.statusMessage,
+    "Local Pocket Uplift data has been cleared from this device."
+  );
 }
 
 function bindEvents() {
