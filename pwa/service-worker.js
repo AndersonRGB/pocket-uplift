@@ -1,4 +1,4 @@
-const CACHE_NAME = "pocket-uplift-v2";
+const CACHE_NAME = "pocket-uplift-v3";
 const APP_SHELL = [
   "../app/index.html",
   "../app/support.html",
@@ -36,18 +36,20 @@ self.addEventListener("fetch", (event) => {
   }
 
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
+    fetch(event.request)
+      .then((networkResponse) => {
+        const clone = networkResponse.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+        return networkResponse;
+      })
+      .catch(() =>
+        caches.match(event.request).then((cachedResponse) => {
+          if (cachedResponse) {
+            return cachedResponse;
+          }
 
-      return fetch(event.request)
-        .then((networkResponse) => {
-          const clone = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
-          return networkResponse;
+          return caches.match("../app/index.html");
         })
-        .catch(() => caches.match("../app/index.html"));
-    })
+      )
   );
 });
