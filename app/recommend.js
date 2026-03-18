@@ -2,12 +2,8 @@ function scoreForLowState(value) {
   return 6 - Number(value || 3);
 }
 
-function makeContextBadge(context) {
-  if (!context || context === "any") {
-    return "";
-  }
-
-  return `fits ${context}`;
+function hasAnyTag(action, tags) {
+  return tags.some((tag) => action.tags.includes(tag));
 }
 
 function addBadge(badges, badge) {
@@ -32,23 +28,19 @@ function buildReasonSentence(action, checkin, badges) {
   }
 
   if (checkin.context !== "any" && action.contexts.includes(checkin.context)) {
-    reasons.push(`you are in a ${checkin.context} context`);
+    reasons.push(`it fits a ${checkin.context} moment`);
   }
 
   if (action.durationMin <= 5) {
     reasons.push("it is short");
   }
 
-  if (action.tags.includes("quiet")) {
-    reasons.push("it is quiet");
-  }
-
-  if (action.tags.includes("breathing")) {
-    reasons.push("it supports a calm reset");
+  if (hasAnyTag(action, ["quiet", "breathing", "grounding", "calm"])) {
+    reasons.push("it offers a calm reset");
   }
 
   if (!reasons.length && badges.length) {
-    reasons.push(`it fits this check-in through ${badges[0].toLowerCase()}`);
+    reasons.push(`it matches this check-in through ${badges[0].toLowerCase()}`);
   }
 
   if (!reasons.length) {
@@ -74,6 +66,8 @@ function scoreAction(action, checkin) {
   const lowEnergyWeight = scoreForLowState(checkin.energy);
   const stressWeight = Number(checkin.stress || 3);
   const context = checkin.context || "any";
+  const isCalming = hasAnyTag(action, ["quiet", "breathing", "grounding", "calm", "sleep"]);
+  const isActive = hasAnyTag(action, ["movement", "outdoors"]);
 
   score += action.goodForMood * lowMoodWeight;
   score += action.goodForEnergy * lowEnergyWeight;
@@ -91,7 +85,7 @@ function scoreAction(action, checkin) {
     addBadge(badges, "gentle mood lift");
   }
 
-  if (action.tags.includes("quiet")) {
+  if (isCalming) {
     score += 2;
     addBadge(badges, "quiet");
   }
@@ -101,36 +95,53 @@ function scoreAction(action, checkin) {
   } else if (action.durationMin <= 10) {
     score += 1;
   }
-  addBadge(badges, `${action.durationMin} min`);
+
+  if (checkin.stress >= 4) {
+    if (action.durationMin <= 5) {
+      score += 3;
+    }
+
+    if (isCalming) {
+      score += 4;
+    }
+  }
+
+  if (checkin.energy <= 2) {
+    if (isCalming) {
+      score += 3;
+    }
+
+    if (isActive) {
+      score -= 2;
+    }
+  }
 
   if (context !== "any" && action.contexts.includes(context)) {
-    score += 5;
-    addBadge(badges, makeContextBadge(context));
+    score += 6;
+    addBadge(badges, `fits ${context}`);
   }
 
-  if (checkin.energy >= 4 && action.tags.includes("movement")) {
+  if (context === "study" && hasAnyTag(action, ["study", "focus"])) {
     score += 2;
-  }
-
-  if (checkin.stress >= 4 && action.tags.includes("breathing")) {
-    score += 3;
-  }
-
-  if (checkin.context === "study" && action.tags.includes("study")) {
     addBadge(badges, "fits study");
   }
 
-  if (checkin.context === "sleep" && action.tags.includes("sleep")) {
+  if (context === "sleep" && hasAnyTag(action, ["sleep", "calm"])) {
+    score += 2;
     addBadge(badges, "fits sleep");
   }
 
-  if (checkin.context === "social" && action.tags.includes("social")) {
+  if (context === "social" && action.tags.includes("social")) {
+    score += 2;
     addBadge(badges, "fits social");
   }
 
-  if (checkin.context === "outdoors" && action.tags.includes("outdoors")) {
+  if (context === "outdoors" && action.tags.includes("outdoors")) {
+    score += 2;
     addBadge(badges, "fits outdoors");
   }
+
+  addBadge(badges, `${action.durationMin} min`);
 
   return {
     ...action,
