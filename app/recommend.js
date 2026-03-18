@@ -16,6 +16,56 @@ function addBadge(badges, badge) {
   }
 }
 
+function buildReasonSentence(action, checkin, badges) {
+  const reasons = [];
+
+  if (checkin.stress >= 4 && action.goodForStress >= 4) {
+    reasons.push("stress is high");
+  }
+
+  if (checkin.energy <= 2 && action.goodForEnergy >= 3) {
+    reasons.push("energy is low");
+  }
+
+  if (checkin.mood <= 2 && action.goodForMood >= 4) {
+    reasons.push("mood is low");
+  }
+
+  if (checkin.context !== "any" && action.contexts.includes(checkin.context)) {
+    reasons.push(`you are in a ${checkin.context} context`);
+  }
+
+  if (action.durationMin <= 5) {
+    reasons.push("it is short");
+  }
+
+  if (action.tags.includes("quiet")) {
+    reasons.push("it is quiet");
+  }
+
+  if (action.tags.includes("breathing")) {
+    reasons.push("it supports a calm reset");
+  }
+
+  if (!reasons.length && badges.length) {
+    reasons.push(`it fits this check-in through ${badges[0].toLowerCase()}`);
+  }
+
+  if (!reasons.length) {
+    return "Recommended because it is a gentle option for your current check-in.";
+  }
+
+  if (reasons.length === 1) {
+    return `Recommended because ${reasons[0]}.`;
+  }
+
+  if (reasons.length === 2) {
+    return `Recommended because ${reasons[0]} and ${reasons[1]}.`;
+  }
+
+  return `Recommended because ${reasons[0]}, ${reasons[1]}, and ${reasons[2]}.`;
+}
+
 function scoreAction(action, checkin) {
   const badges = [];
   let score = 0;
@@ -84,6 +134,7 @@ function scoreAction(action, checkin) {
 
   return {
     ...action,
+    reasonText: buildReasonSentence(action, checkin, badges),
     score,
     whyBadges: badges.slice(0, 4),
   };

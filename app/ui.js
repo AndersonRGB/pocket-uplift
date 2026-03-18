@@ -14,7 +14,7 @@ function formatShortDate(value) {
 function renderRecommendations(container, results, feedbackMap) {
   if (!results.length) {
     container.innerHTML =
-      '<p class="empty-state">Complete your check-in to see recommendations.</p>';
+      '<p class="empty-state">Complete a quick check-in and Pocket Uplift will suggest three small actions that match your day.</p>';
     return;
   }
 
@@ -34,6 +34,7 @@ function renderRecommendations(container, results, feedbackMap) {
             <span class="duration-pill">${result.durationMin} min</span>
           </div>
           <div class="badge-row">${createBadgeMarkup(result.whyBadges)}</div>
+          <p class="muted">${result.reasonText}</p>
           <p class="result-note">${result.note}</p>
           <div class="feedback-row">
             <button
