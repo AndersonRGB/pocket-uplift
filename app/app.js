@@ -111,10 +111,25 @@ function saveDraftFromForm() {
 }
 
 function buildHistorySummary(history) {
+  if (!history.length) {
+    return {
+      averageMood: null,
+      latest: null,
+      recent: [],
+      streak: 0,
+      totalCheckins: 0,
+      trend: [],
+    };
+  }
+
   const recent = history.slice(0, 4).map((entry) => ({
     ...entry,
     contextLabel: getContextLabel(entry.context),
   }));
+
+  const recentMoodWindow = history.slice(0, 7);
+  const averageMood =
+    recentMoodWindow.reduce((sum, entry) => sum + entry.mood, 0) / recentMoodWindow.length;
 
   const groups = new Map();
   history.forEach((entry) => {
@@ -150,6 +165,8 @@ function buildHistorySummary(history) {
   }
 
   return {
+    averageMood,
+    latest: recent[0],
     recent,
     streak,
     totalCheckins: history.length,
@@ -194,6 +211,12 @@ function updateCurrentEntryFeedback(actionId, feedback) {
   state.history = window.appStorage.recordFeedback(state.currentEntryId, actionId, feedback);
   renderResults();
   renderProgress();
+  window.appUi.setStatus(
+    elements.statusMessage,
+    feedback === "did"
+      ? "Saved. Nice work logging that action."
+      : "Saved. That action was skipped this time."
+  );
 }
 
 async function loadActions() {

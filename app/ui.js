@@ -63,9 +63,13 @@ function renderRecommendations(container, results, feedbackMap) {
 function renderProgress(container, summary) {
   if (!summary.totalCheckins) {
     container.innerHTML =
-      '<p class="empty-state">Your recent activity will appear here after your first check-in.</p>';
+      '<p class="empty-state">Your recent pattern will appear after your first check-in. Start with one quick check-in to build a simple local record on this device.</p>';
     return;
   }
+
+  const latestFeedback = summary.latest.feedback || {};
+  const didCount = Object.values(latestFeedback).filter((value) => value === "did").length;
+  const skippedCount = Object.values(latestFeedback).filter((value) => value === "skip").length;
 
   const trendMarkup = summary.trend
     .map((day) => {
@@ -110,7 +114,21 @@ function renderProgress(container, summary) {
         </div>
         <p class="metric-note">A simple record stored only on this device.</p>
       </article>
+      <article class="info-tile">
+        <div class="info-header">
+          <h3>Average mood</h3>
+          <span class="metric-value">${summary.averageMood.toFixed(1)}/5</span>
+        </div>
+        <p class="metric-note">Based on your most recent check-ins.</p>
+      </article>
     </div>
+    <article class="info-tile">
+      <h3>Latest check-in</h3>
+      <p class="metric-note">
+        ${formatShortDate(summary.latest.createdAt)} · Mood ${summary.latest.mood}/5 · Energy ${summary.latest.energy}/5 · Stress ${summary.latest.stress}/5 · ${summary.latest.contextLabel}
+      </p>
+      <p class="metric-note">Latest action feedback: ${didCount} completed, ${skippedCount} skipped.</p>
+    </article>
     <article class="info-tile">
       <h3>7-day mood view</h3>
       <div class="trend-row">${trendMarkup}</div>
