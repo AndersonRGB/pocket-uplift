@@ -396,8 +396,8 @@ h1 {
 }
 
 .site-header--app .brand-logo {
-  width: clamp(5.5rem, 10vw, 7rem);
-  height: clamp(5.5rem, 10vw, 7rem);
+  width: clamp(6.1rem, 11vw, 7.8rem);
+  height: clamp(6.1rem, 11vw, 7.8rem);
 }
 
 .site-header--app .header-title {
@@ -820,8 +820,8 @@ input[type="range"] {
   }
 
   .brand-logo {
-    width: 3.8rem;
-    height: 3.8rem;
+    width: 4.2rem;
+    height: 4.2rem;
   }
 
   .site-header--app .header-title {
