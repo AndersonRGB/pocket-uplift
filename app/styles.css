@@ -414,6 +414,13 @@ h1 {
   height: clamp(6.1rem, 11vw, 7.8rem);
 }
 
+.site-header--support h1 {
+  max-width: none;
+  font-size: clamp(2.4rem, 4.8vw, 4.1rem);
+  line-height: 1.02;
+  white-space: nowrap;
+}
+
 .site-header--app .header-title {
   max-width: 18ch;
   font-family: var(--font-body);
@@ -835,6 +842,11 @@ input[type="range"] {
 
   .site-header--support .brand-lockup {
     gap: var(--space-3);
+  }
+
+  .site-header--support h1 {
+    font-size: clamp(2rem, 8vw, 3rem);
+    white-space: normal;
   }
 
   .brand-logo {
