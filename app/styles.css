@@ -405,13 +405,13 @@ h1 {
 }
 
 .site-header--app .brand-logo {
-  width: clamp(6.1rem, 11vw, 7.8rem);
-  height: clamp(6.1rem, 11vw, 7.8rem);
+  width: clamp(6.8rem, 12vw, 8.6rem);
+  height: clamp(6.8rem, 12vw, 8.6rem);
 }
 
 .site-header--support .brand-logo {
-  width: clamp(6.1rem, 11vw, 7.8rem);
-  height: clamp(6.1rem, 11vw, 7.8rem);
+  width: clamp(6.8rem, 12vw, 8.6rem);
+  height: clamp(6.8rem, 12vw, 8.6rem);
 }
 
 .site-header--support h1 {
@@ -850,8 +850,8 @@ input[type="range"] {
   }
 
   .brand-logo {
-    width: 4.2rem;
-    height: 4.2rem;
+    width: 4.7rem;
+    height: 4.7rem;
   }
 
   .site-header--app .header-title {
