@@ -202,6 +202,36 @@ button {
   max-width: 46rem;
 }
 
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.brand-logo {
+  width: 4.25rem;
+  height: 4.25rem;
+  flex: 0 0 auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 18px rgba(20, 39, 33, 0.08));
+}
+
+.brand-copy {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.brand-name {
+  margin: 0;
+  color: var(--color-ink-950);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
 .header-actions {
   display: flex;
   flex-wrap: wrap;
@@ -335,6 +365,10 @@ button {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-ink-500);
+}
+
+.brand-copy .eyebrow {
+  margin-bottom: 0;
 }
 
 h1,
@@ -755,6 +789,19 @@ input[type="range"] {
 
   h1 {
     font-size: clamp(2.2rem, 10vw, 3.1rem);
+  }
+
+  .brand-lockup {
+    gap: var(--space-3);
+  }
+
+  .brand-logo {
+    width: 3.4rem;
+    height: 3.4rem;
+  }
+
+  .brand-name {
+    font-size: 1.15rem;
   }
 
   .card {
