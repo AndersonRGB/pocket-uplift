@@ -58,8 +58,8 @@ function parseCsv(text) {
 }
 
 function getSelectedContext() {
-  const active = elements.contextOptions.querySelector(".context-chip.is-selected");
-  return active ? active.dataset.context : "any";
+  const active = elements.contextOptions.querySelector('input[name="context"]:checked');
+  return active ? active.value : "any";
 }
 
 function getContextLabel(context) {
@@ -98,11 +98,9 @@ function updateSliderOutputs() {
 }
 
 function setActiveContext(context) {
-  const chips = elements.contextOptions.querySelectorAll(".context-chip");
-  chips.forEach((chip) => {
-    const isActive = chip.dataset.context === context;
-    chip.classList.toggle("is-selected", isActive);
-    chip.setAttribute("aria-pressed", String(isActive));
+  const options = elements.contextOptions.querySelectorAll('input[name="context"]');
+  options.forEach((option) => {
+    option.checked = option.value === context;
   });
 }
 
@@ -299,13 +297,13 @@ function bindEvents() {
     });
   });
 
-  elements.contextOptions.addEventListener("click", (event) => {
-    const chip = event.target.closest(".context-chip");
-    if (!chip) {
+  elements.contextOptions.addEventListener("change", (event) => {
+    const option = event.target.closest('input[name="context"]');
+    if (!option) {
       return;
     }
 
-    setActiveContext(chip.dataset.context);
+    setActiveContext(option.value);
     saveDraftFromForm();
   });
 

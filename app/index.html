@@ -132,21 +132,52 @@
               <legend>Context</legend>
               <p class="muted compact">Pick the setting that fits best right now.</p>
               <div id="context-options" class="context-grid" role="radiogroup" aria-label="Context">
-                <button type="button" class="context-chip is-selected" data-context="any" aria-pressed="true">
-                  Any
-                </button>
-                <button type="button" class="context-chip" data-context="study" aria-pressed="false">
-                  Study
-                </button>
-                <button type="button" class="context-chip" data-context="sleep" aria-pressed="false">
-                  Sleep
-                </button>
-                <button type="button" class="context-chip" data-context="social" aria-pressed="false">
-                  Social
-                </button>
-                <button type="button" class="context-chip" data-context="outdoors" aria-pressed="false">
-                  Outdoors
-                </button>
+                <label class="context-option">
+                  <input
+                    class="context-input"
+                    type="radio"
+                    name="context"
+                    value="any"
+                    checked
+                  />
+                  <span class="context-chip">Any</span>
+                </label>
+                <label class="context-option">
+                  <input
+                    class="context-input"
+                    type="radio"
+                    name="context"
+                    value="study"
+                  />
+                  <span class="context-chip">Study</span>
+                </label>
+                <label class="context-option">
+                  <input
+                    class="context-input"
+                    type="radio"
+                    name="context"
+                    value="sleep"
+                  />
+                  <span class="context-chip">Sleep</span>
+                </label>
+                <label class="context-option">
+                  <input
+                    class="context-input"
+                    type="radio"
+                    name="context"
+                    value="social"
+                  />
+                  <span class="context-chip">Social</span>
+                </label>
+                <label class="context-option">
+                  <input
+                    class="context-input"
+                    type="radio"
+                    name="context"
+                    value="outdoors"
+                  />
+                  <span class="context-chip">Outdoors</span>
+                </label>
               </div>
             </fieldset>
 

@@ -439,8 +439,21 @@ input[type="range"] {
   margin-top: var(--space-4);
 }
 
+.context-option {
+  position: relative;
+}
+
+.context-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .context-chip,
 .feedback-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-height: 2.85rem;
   padding: 0.72rem 1rem;
   border: 1px solid var(--border-subtle);
@@ -457,12 +470,17 @@ input[type="range"] {
   transform: translateY(-1px);
 }
 
-.context-chip.is-selected,
+.context-input:checked + .context-chip,
 .feedback-button.is-active {
   background: linear-gradient(135deg, var(--color-brand-500), var(--color-brand-700));
   color: var(--color-white);
   border-color: transparent;
   box-shadow: 0 14px 28px rgba(32, 84, 67, 0.18);
+}
+
+.context-input:focus-visible + .context-chip {
+  outline: 3px solid rgba(13, 60, 166, 0.38);
+  outline-offset: 3px;
 }
 
 .button-row {
