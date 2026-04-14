@@ -6,10 +6,37 @@ function hasAnyTag(action, tags) {
   return tags.some((tag) => action.tags.includes(tag));
 }
 
+function countSharedTags(left, right) {
+  return left.tags.filter((tag) => right.tags.includes(tag)).length;
+}
+
 function addBadge(badges, badge) {
   if (badge && !badges.includes(badge)) {
     badges.push(badge);
   }
+}
+
+function getContextReason(context) {
+  const labels = {
+    any: "this moment",
+    study: "a study session",
+    sleep: "winding down",
+    social: "a social moment",
+    outdoors: "an outdoor break",
+  };
+
+  return labels[context] || "this moment";
+}
+
+function getContextBadge(context) {
+  const labels = {
+    study: "fits study",
+    sleep: "fits winding down",
+    social: "fits social",
+    outdoors: "fits outdoor time",
+  };
+
+  return labels[context] || "";
 }
 
 function buildReasonSentence(action, checkin, badges) {
@@ -28,7 +55,7 @@ function buildReasonSentence(action, checkin, badges) {
   }
 
   if (checkin.context !== "any" && action.contexts.includes(checkin.context)) {
-    reasons.push(`it fits a ${checkin.context} moment`);
+    reasons.push(`it fits ${getContextReason(checkin.context)}`);
   }
 
   if (action.durationMin <= 5) {
@@ -68,6 +95,7 @@ function scoreAction(action, checkin) {
   const context = checkin.context || "any";
   const isCalming = hasAnyTag(action, ["quiet", "breathing", "grounding", "calm", "sleep"]);
   const isActive = hasAnyTag(action, ["movement", "outdoors"]);
+  const exactContextMatch = context !== "any" && action.contexts.includes(context);
 
   score += action.goodForMood * lowMoodWeight;
   score += action.goodForEnergy * lowEnergyWeight;
@@ -116,29 +144,41 @@ function scoreAction(action, checkin) {
     }
   }
 
-  if (context !== "any" && action.contexts.includes(context)) {
-    score += 6;
-    addBadge(badges, `fits ${context}`);
+  if (exactContextMatch) {
+    score += 5;
+    addBadge(badges, getContextBadge(context));
   }
 
   if (context === "study" && hasAnyTag(action, ["study", "focus"])) {
-    score += 2;
-    addBadge(badges, "fits study");
+    score += exactContextMatch ? 1 : 2;
+    if (!exactContextMatch) {
+      addBadge(badges, "supports focus");
+    }
   }
 
   if (context === "sleep" && hasAnyTag(action, ["sleep", "calm"])) {
-    score += 2;
-    addBadge(badges, "fits sleep");
+    score += exactContextMatch ? 1 : 3;
+    if (!exactContextMatch) {
+      addBadge(badges, "supports winding down");
+    }
   }
 
   if (context === "social" && action.tags.includes("social")) {
-    score += 2;
-    addBadge(badges, "fits social");
+    score += exactContextMatch ? 1 : 2;
+    if (!exactContextMatch) {
+      addBadge(badges, "social-friendly");
+    }
   }
 
   if (context === "outdoors" && action.tags.includes("outdoors")) {
-    score += 2;
-    addBadge(badges, "fits outdoors");
+    score += exactContextMatch ? 1 : 2;
+    if (!exactContextMatch) {
+      addBadge(badges, "good outdoors");
+    }
+  }
+
+  if (context === "sleep" && isActive && !action.tags.includes("sleep")) {
+    score -= 5;
   }
 
   addBadge(badges, `${action.durationMin} min`);
@@ -151,12 +191,49 @@ function scoreAction(action, checkin) {
   };
 }
 
+function selectDiverseResults(scoredActions, limit) {
+  const selected = [];
+  const remaining = [...scoredActions];
+
+  while (selected.length < limit && remaining.length) {
+    let bestIndex = 0;
+    let bestAdjustedScore = -Infinity;
+
+    remaining.forEach((candidate, index) => {
+      const diversityPenalty = selected.reduce((total, chosen) => {
+        let penalty = total;
+
+        if (candidate.category === chosen.category) {
+          penalty += 4;
+        }
+
+        if (countSharedTags(candidate, chosen) >= 2) {
+          penalty += 2;
+        }
+
+        return penalty;
+      }, 0);
+
+      const adjustedScore = candidate.score - diversityPenalty;
+
+      if (adjustedScore > bestAdjustedScore) {
+        bestAdjustedScore = adjustedScore;
+        bestIndex = index;
+      }
+    });
+
+    selected.push(remaining.splice(bestIndex, 1)[0]);
+  }
+
+  return selected;
+}
+
 function recommendTop3(actions, checkin, limit = 3) {
   if (!Array.isArray(actions) || !actions.length) {
     return [];
   }
 
-  return actions
+  const scoredActions = actions
     .map((action) => scoreAction(action, checkin))
     .sort((left, right) => {
       if (right.score !== left.score) {
@@ -164,8 +241,9 @@ function recommendTop3(actions, checkin, limit = 3) {
       }
 
       return left.durationMin - right.durationMin;
-    })
-    .slice(0, limit);
+    });
+
+  return selectDiverseResults(scoredActions, limit);
 }
 
 window.recommendTop3 = recommendTop3;
