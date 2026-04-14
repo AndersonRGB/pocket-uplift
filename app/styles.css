@@ -232,6 +232,15 @@ button {
   letter-spacing: -0.01em;
 }
 
+.support-kicker {
+  margin: 0;
+  color: var(--color-ink-500);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 .header-actions {
   display: flex;
   flex-wrap: wrap;
@@ -395,9 +404,21 @@ h1 {
   max-width: 40rem;
 }
 
+.site-header--support .brand-lockup {
+  display: inline-grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-4);
+}
+
 .site-header--app .brand-logo {
   width: clamp(6.1rem, 11vw, 7.8rem);
   height: clamp(6.1rem, 11vw, 7.8rem);
+}
+
+.site-header--support .brand-logo {
+  width: clamp(5.3rem, 8vw, 6.2rem);
+  height: clamp(5.3rem, 8vw, 6.2rem);
 }
 
 .site-header--app .header-title {
@@ -817,6 +838,10 @@ input[type="range"] {
     grid-template-columns: auto 1fr;
     gap: var(--space-3);
     max-width: 100%;
+  }
+
+  .site-header--support .brand-lockup {
+    gap: var(--space-3);
   }
 
   .brand-logo {
