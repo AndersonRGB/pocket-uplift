@@ -139,8 +139,11 @@
             </div>
 
             <fieldset class="context-fieldset">
-              <legend>Context</legend>
-              <p class="muted compact">Pick the setting that fits best right now.</p>
+              <legend>What best matches your situation right now?</legend>
+              <p class="muted compact">
+                Choose the option that best describes your current situation. This helps Pocket
+                Uplift suggest actions that fit your moment.
+              </p>
               <div id="context-options" class="context-grid" role="radiogroup" aria-label="Context">
                 <label class="context-option">
                   <input
@@ -150,7 +153,7 @@
                     value="any"
                     checked
                   />
-                  <span class="context-chip">Any</span>
+                  <span class="context-chip">No preference</span>
                 </label>
                 <label class="context-option">
                   <input
@@ -189,6 +192,28 @@
                   <span class="context-chip">Outdoors</span>
                 </label>
               </div>
+              <ul class="context-help-list" aria-label="Context guidance">
+                <li class="context-help-item">
+                  <strong>No preference</strong>
+                  <span>use this if none of the options clearly fits</span>
+                </li>
+                <li class="context-help-item">
+                  <strong>Study</strong>
+                  <span>if you are studying, revising, or trying to focus</span>
+                </li>
+                <li class="context-help-item">
+                  <strong>Sleep</strong>
+                  <span>if you are winding down, resting, or getting ready to sleep</span>
+                </li>
+                <li class="context-help-item">
+                  <strong>Social</strong>
+                  <span>if you are with others or feel like connecting with someone</span>
+                </li>
+                <li class="context-help-item">
+                  <strong>Outdoors</strong>
+                  <span>if you are outside or able to step outside</span>
+                </li>
+              </ul>
             </fieldset>
 
             <div class="button-row">

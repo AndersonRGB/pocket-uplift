@@ -64,7 +64,7 @@ function getSelectedContext() {
 
 function getContextLabel(context) {
   if (context === "any") {
-    return "Any";
+    return "No preference";
   }
 
   return context.charAt(0).toUpperCase() + context.slice(1);
