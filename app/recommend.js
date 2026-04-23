@@ -95,6 +95,9 @@ function scoreAction(action, checkin) {
   const context = checkin.context || "any";
   const isCalming = hasAnyTag(action, ["quiet", "breathing", "grounding", "calm", "sleep"]);
   const isActive = hasAnyTag(action, ["movement", "outdoors"]);
+  const isBreathing = action.tags.includes("breathing");
+  const isGrounding = action.tags.includes("grounding");
+  const isOutdoors = action.tags.includes("outdoors");
   const exactContextMatch = context !== "any" && action.contexts.includes(context);
 
   score += action.goodForMood * lowMoodWeight;
@@ -114,8 +117,16 @@ function scoreAction(action, checkin) {
   }
 
   if (isCalming) {
-    score += 2;
+    score += 1;
     addBadge(badges, "quiet");
+  }
+
+  if (isGrounding && checkin.stress >= 4) {
+    score += 2;
+  } else if (isGrounding && checkin.stress === 3) {
+    score += 1;
+  } else if (isGrounding && checkin.stress <= 2) {
+    score -= 1;
   }
 
   if (action.durationMin <= 5) {
@@ -132,6 +143,14 @@ function scoreAction(action, checkin) {
     if (isCalming) {
       score += 4;
     }
+
+    if (isBreathing) {
+      score += 1;
+    }
+  }
+
+  if (checkin.stress <= 2 && isBreathing) {
+    score -= 2;
   }
 
   if (checkin.energy <= 2) {
@@ -142,6 +161,14 @@ function scoreAction(action, checkin) {
     if (isActive) {
       score -= 2;
     }
+  }
+
+  if (checkin.energy >= 4 && isActive) {
+    score += 2;
+  }
+
+  if (checkin.mood <= 2 && hasAnyTag(action, ["uplift", "social", "creative", "outdoors"])) {
+    score += 2;
   }
 
   if (exactContextMatch) {
@@ -171,10 +198,14 @@ function scoreAction(action, checkin) {
   }
 
   if (context === "outdoors" && action.tags.includes("outdoors")) {
-    score += exactContextMatch ? 1 : 2;
+    score += exactContextMatch ? 4 : 3;
     if (!exactContextMatch) {
       addBadge(badges, "good outdoors");
     }
+  }
+
+  if (context === "outdoors" && !isOutdoors) {
+    score -= 3;
   }
 
   if (context === "sleep" && isActive && !action.tags.includes("sleep")) {
