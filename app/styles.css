@@ -734,11 +734,23 @@ input[type="range"]::-moz-range-track {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
 }
 
+.result-reason,
 .result-note,
 .support-card p,
 .metric-note {
   margin: var(--space-3) 0 0;
   color: var(--color-ink-700);
+}
+
+.result-reason,
+.result-note {
+  line-height: 1.6;
+}
+
+.result-reason strong,
+.result-note strong {
+  color: var(--color-ink-950);
+  font-weight: 700;
 }
 
 .feedback-row {

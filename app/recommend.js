@@ -71,18 +71,18 @@ function buildReasonSentence(action, checkin, badges) {
   }
 
   if (!reasons.length) {
-    return "Recommended because it is a gentle option for your current check-in.";
+    return "Because it is a gentle option for your current check-in.";
   }
 
   if (reasons.length === 1) {
-    return `Recommended because ${reasons[0]}.`;
+    return `Because ${reasons[0]}.`;
   }
 
   if (reasons.length === 2) {
-    return `Recommended because ${reasons[0]} and ${reasons[1]}.`;
+    return `Because ${reasons[0]} and ${reasons[1]}.`;
   }
 
-  return `Recommended because ${reasons[0]}, ${reasons[1]}, and ${reasons[2]}.`;
+  return `Because ${reasons[0]}, ${reasons[1]}, and ${reasons[2]}.`;
 }
 
 function scoreAction(action, checkin) {

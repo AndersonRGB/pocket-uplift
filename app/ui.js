@@ -34,8 +34,14 @@ function renderRecommendations(container, results, feedbackMap) {
             <span class="duration-pill">${result.durationMin} min</span>
           </div>
           <div class="badge-row">${createBadgeMarkup(result.whyBadges)}</div>
-          <p class="muted">${result.reasonText}</p>
-          <p class="result-note">${result.note}</p>
+          <p class="result-reason">
+            <strong>Recommended:</strong>
+            ${result.reasonText}
+          </p>
+          <p class="result-note">
+            <strong>What to do:</strong>
+            ${result.note}
+          </p>
           <div class="feedback-row">
             <button
               class="${didItClass}"
