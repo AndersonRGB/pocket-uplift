@@ -1,9 +1,11 @@
 const fs = require("fs");
 const path = require("path");
 const http = require("http");
+const os = require("os");
 
 const port = Number(process.argv[2] || 4173);
 const root = path.resolve(__dirname, "..");
+const host = "0.0.0.0";
 
 const contentTypes = {
   ".css": "text/css; charset=utf-8",
@@ -11,8 +13,24 @@ const contentTypes = {
   ".html": "text/html; charset=utf-8",
   ".js": "application/javascript; charset=utf-8",
   ".json": "application/json; charset=utf-8",
+  ".png": "image/png",
   ".svg": "image/svg+xml",
 };
+
+function getNetworkUrls() {
+  const interfaces = os.networkInterfaces();
+  const urls = [];
+
+  Object.values(interfaces).forEach((entries) => {
+    (entries || []).forEach((entry) => {
+      if (entry.family === "IPv4" && !entry.internal) {
+        urls.push(`http://${entry.address}:${port}/app/index.html`);
+      }
+    });
+  });
+
+  return urls;
+}
 
 function resolveRequestPath(urlPath) {
   const cleanPath = decodeURIComponent(urlPath.split("?")[0]);
@@ -57,8 +75,13 @@ const server = http.createServer((request, response) => {
   });
 });
 
-server.listen(port, "127.0.0.1", () => {
+server.listen(port, host, () => {
   console.log(`Pocket Uplift dev server running at http://127.0.0.1:${port}/app/index.html`);
+
+  const networkUrls = getNetworkUrls();
+  networkUrls.forEach((url) => {
+    console.log(`Available on your network at ${url}`);
+  });
 });
 
 function shutdown() {
