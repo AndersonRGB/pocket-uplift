@@ -212,8 +212,6 @@ function scoreAction(action, checkin) {
     score -= 5;
   }
 
-  addBadge(badges, `${action.durationMin} min`);
-
   return {
     ...action,
     reasonText: buildReasonSentence(action, checkin, badges),
