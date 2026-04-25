@@ -1146,16 +1146,6 @@ input[type="range"]::-moz-range-track {
     background-color 180ms ease;
 }
 
-.link-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 1em;
-  margin-right: 0.45rem;
-  line-height: 1;
-  font-size: 0.95em;
-}
-
 .support-link:hover {
   transform: translateY(-1px);
   border-color: rgba(42, 140, 128, 0.3);
