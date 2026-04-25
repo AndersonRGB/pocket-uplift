@@ -126,8 +126,81 @@ body.high-contrast {
 }
 
 body.dyslexia-font {
-  --font-body: Verdana, Arial, sans-serif;
-  --font-display: Verdana, Arial, sans-serif;
+  --font-body: Verdana, Tahoma, Arial, sans-serif;
+  --font-display: Verdana, Tahoma, Arial, sans-serif;
+  --line-body: 1.78;
+  letter-spacing: 0.015em;
+  word-spacing: 0.05em;
+}
+
+body.dyslexia-font h1,
+body.dyslexia-font h2,
+body.dyslexia-font h3,
+body.dyslexia-font .header-title,
+body.dyslexia-font .brand-name {
+  letter-spacing: 0;
+  line-height: 1.18;
+}
+
+body.dyslexia-font .tagline,
+body.dyslexia-font .muted,
+body.dyslexia-font .compact,
+body.dyslexia-font .section-subcopy,
+body.dyslexia-font .context-card span,
+body.dyslexia-font .result-reason,
+body.dyslexia-font .result-note,
+body.dyslexia-font .support-card p,
+body.dyslexia-font .metric-note,
+body.dyslexia-font .empty-state,
+body.dyslexia-font .site-footer__copy p {
+  line-height: 1.82;
+}
+
+body.dyslexia-font p + p,
+body.dyslexia-font .support-card p + p,
+body.dyslexia-font .metric-note + .metric-note,
+body.dyslexia-font .result-note + .result-note {
+  margin-top: 1rem;
+}
+
+body.dyslexia-font label,
+body.dyslexia-font .toggle span,
+body.dyslexia-font .feedback-button,
+body.dyslexia-font .button-primary,
+body.dyslexia-font .button-secondary,
+body.dyslexia-font .nav-link,
+body.dyslexia-font .support-link,
+body.dyslexia-font .footer-link {
+  letter-spacing: 0.01em;
+}
+
+body.dyslexia-font .context-card,
+body.dyslexia-font .result-card,
+body.dyslexia-font .support-card,
+body.dyslexia-font .info-tile,
+body.dyslexia-font .empty-state {
+  text-wrap: pretty;
+}
+
+@media (max-width: 640px) {
+  body.dyslexia-font {
+    font-size: 1.03rem;
+    letter-spacing: 0.018em;
+    word-spacing: 0.06em;
+  }
+
+  body.dyslexia-font .tagline,
+  body.dyslexia-font .muted,
+  body.dyslexia-font .compact,
+  body.dyslexia-font .section-subcopy,
+  body.dyslexia-font .context-card span,
+  body.dyslexia-font .result-reason,
+  body.dyslexia-font .result-note,
+  body.dyslexia-font .support-card p,
+  body.dyslexia-font .metric-note,
+  body.dyslexia-font .empty-state {
+    line-height: 1.88;
+  }
 }
 
 body.support-page .page-shell {
@@ -992,16 +1065,6 @@ input[type="range"]::-moz-range-track {
     box-shadow 180ms ease,
     border-color 180ms ease,
     background-color 180ms ease;
-}
-
-.link-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 1em;
-  margin-right: 0.45rem;
-  line-height: 1;
-  font-size: 0.95em;
 }
 
 .support-link:hover {
