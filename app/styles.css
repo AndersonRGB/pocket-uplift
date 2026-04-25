@@ -443,6 +443,9 @@ button {
   .display-options {
     display: flex;
     justify-content: flex-end;
+    position: relative;
+    top: -5.25rem;
+    margin-bottom: -5.25rem;
     padding-bottom: var(--space-4);
   }
 
