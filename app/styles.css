@@ -684,6 +684,12 @@ input[type="range"]::-moz-range-track {
   margin-bottom: var(--space-5);
 }
 
+.section-subcopy {
+  margin-top: var(--space-2);
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+
 .results-stack,
 .progress-stack,
 .support-stack {
