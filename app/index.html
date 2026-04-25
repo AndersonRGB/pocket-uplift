@@ -72,8 +72,8 @@
           <h2 id="checkin-title">Daily check-in</h2>
           <form id="checkin-form" class="stack" aria-describedby="checkin-help">
             <p id="checkin-help" class="muted compact">
-              Use the sliders and one context button to get three suggestions that fit your current
-              state.
+              Use the sliders and choose one context option to get three suggestions that fit your
+              current state.
             </p>
             <div class="slider-group">
               <div class="label-row">
@@ -144,7 +144,12 @@
                 Choose the option that best describes your current situation. This helps Pocket
                 Uplift suggest actions that fit your moment.
               </p>
-              <div id="context-options" class="context-grid" role="radiogroup" aria-label="Context">
+              <div
+                id="context-options"
+                class="context-grid"
+                role="radiogroup"
+                aria-label="Context"
+              >
                 <label class="context-option">
                   <input
                     class="context-input"
@@ -153,7 +158,10 @@
                     value="any"
                     checked
                   />
-                  <span class="context-chip">No preference</span>
+                  <span class="context-card">
+                    <strong>No preference</strong>
+                    <span>use this if none of the options clearly fits</span>
+                  </span>
                 </label>
                 <label class="context-option">
                   <input
@@ -162,7 +170,10 @@
                     name="context"
                     value="study"
                   />
-                  <span class="context-chip">Study</span>
+                  <span class="context-card">
+                    <strong>Study</strong>
+                    <span>if you are studying, revising, or trying to focus</span>
+                  </span>
                 </label>
                 <label class="context-option">
                   <input
@@ -171,7 +182,10 @@
                     name="context"
                     value="sleep"
                   />
-                  <span class="context-chip">Sleep</span>
+                  <span class="context-card">
+                    <strong>Sleep</strong>
+                    <span>if you are winding down, resting, or getting ready to sleep</span>
+                  </span>
                 </label>
                 <label class="context-option">
                   <input
@@ -180,7 +194,10 @@
                     name="context"
                     value="social"
                   />
-                  <span class="context-chip">Social</span>
+                  <span class="context-card">
+                    <strong>Social</strong>
+                    <span>if you are with others or feel like connecting with someone</span>
+                  </span>
                 </label>
                 <label class="context-option">
                   <input
@@ -189,31 +206,12 @@
                     name="context"
                     value="outdoors"
                   />
-                  <span class="context-chip">Outdoors</span>
+                  <span class="context-card">
+                    <strong>Outdoors</strong>
+                    <span>if you are outside or able to step outside</span>
+                  </span>
                 </label>
               </div>
-              <ul class="context-help-list" aria-label="Context guidance">
-                <li class="context-help-item">
-                  <strong>No preference</strong>
-                  <span>use this if none of the options clearly fits</span>
-                </li>
-                <li class="context-help-item">
-                  <strong>Study</strong>
-                  <span>if you are studying, revising, or trying to focus</span>
-                </li>
-                <li class="context-help-item">
-                  <strong>Sleep</strong>
-                  <span>if you are winding down, resting, or getting ready to sleep</span>
-                </li>
-                <li class="context-help-item">
-                  <strong>Social</strong>
-                  <span>if you are with others or feel like connecting with someone</span>
-                </li>
-                <li class="context-help-item">
-                  <strong>Outdoors</strong>
-                  <span>if you are outside or able to step outside</span>
-                </li>
-              </ul>
             </fieldset>
 
             <div class="button-row">
