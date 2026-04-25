@@ -30,10 +30,10 @@ function getContextReason(context) {
 
 function getContextBadge(context) {
   const labels = {
-    study: "fits study",
-    sleep: "fits winding down",
-    social: "fits social",
-    outdoors: "fits outdoor time",
+    study: "Fits study",
+    sleep: "Fits winding down",
+    social: "Fits social",
+    outdoors: "Fits outdoor time",
   };
 
   return labels[context] || "";
@@ -105,20 +105,20 @@ function scoreAction(action, checkin) {
   score += action.goodForStress * stressWeight;
 
   if (action.goodForStress >= 4 && checkin.stress >= 3) {
-    addBadge(badges, "good for stress");
+    addBadge(badges, "Good for stress");
   }
 
   if (action.goodForEnergy >= 4 && checkin.energy <= 3) {
-    addBadge(badges, "energy boost");
+    addBadge(badges, "Energy boost");
   }
 
   if (action.goodForMood >= 4 && checkin.mood <= 3) {
-    addBadge(badges, "gentle mood lift");
+    addBadge(badges, "Gentle mood lift");
   }
 
   if (isCalming) {
     score += 1;
-    addBadge(badges, "quiet");
+    addBadge(badges, "Quiet");
   }
 
   if (isGrounding && checkin.stress >= 4) {
@@ -179,28 +179,28 @@ function scoreAction(action, checkin) {
   if (context === "study" && hasAnyTag(action, ["study", "focus"])) {
     score += exactContextMatch ? 1 : 2;
     if (!exactContextMatch) {
-      addBadge(badges, "supports focus");
+      addBadge(badges, "Supports focus");
     }
   }
 
   if (context === "sleep" && hasAnyTag(action, ["sleep", "calm"])) {
     score += exactContextMatch ? 1 : 3;
     if (!exactContextMatch) {
-      addBadge(badges, "supports winding down");
+      addBadge(badges, "Supports winding down");
     }
   }
 
   if (context === "social" && action.tags.includes("social")) {
     score += exactContextMatch ? 1 : 2;
     if (!exactContextMatch) {
-      addBadge(badges, "social-friendly");
+      addBadge(badges, "Social-friendly");
     }
   }
 
   if (context === "outdoors" && action.tags.includes("outdoors")) {
     score += exactContextMatch ? 4 : 3;
     if (!exactContextMatch) {
-      addBadge(badges, "good outdoors");
+      addBadge(badges, "Good outdoors");
     }
   }
 
