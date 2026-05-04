@@ -640,14 +640,10 @@ h1 {
   gap: var(--space-4);
 }
 
-.site-header--app .brand-logo {
+.site-header--app .brand-logo,
+.site-header--support .brand-logo {
   width: clamp(7.3rem, 12.5vw, 9.1rem);
   height: clamp(7.3rem, 12.5vw, 9.1rem);
-}
-
-.site-header--support .brand-logo {
-  width: clamp(7.1rem, 12vw, 8.9rem);
-  height: clamp(7.1rem, 12vw, 8.9rem);
 }
 
 .site-header--support h1 {
