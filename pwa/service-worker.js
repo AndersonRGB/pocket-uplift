@@ -1,4 +1,4 @@
-const CACHE_NAME = "pocket-uplift-v4";
+const CACHE_NAME = "pocket-uplift-v6";
 const APP_SHELL = [
   "../app/index.html",
   "../app/support.html",
@@ -11,8 +11,6 @@ const APP_SHELL = [
   "../app/assets/brand/pocket-uplift-logo.png",
   "../app/assets/icons/icon-192.png",
   "../app/assets/icons/icon-512.png",
-  "../app/assets/icons/icon-192.svg",
-  "../app/assets/icons/icon-512.svg",
   "./manifest.json",
 ];
 

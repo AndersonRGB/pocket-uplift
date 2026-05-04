@@ -1,4 +1,4 @@
-const CACHE_NAME = "pocket-uplift-v5";
+const CACHE_NAME = "pocket-uplift-v6";
 const APP_SHELL = [
   "./index.html",
   "./support.html",
@@ -11,9 +11,7 @@ const APP_SHELL = [
   "./data/micro_actions.csv",
   "./assets/brand/pocket-uplift-logo.png",
   "./assets/icons/icon-192.png",
-  "./assets/icons/icon-512.png",
-  "./assets/icons/icon-192.svg",
-  "./assets/icons/icon-512.svg"
+  "./assets/icons/icon-512.png"
 ];
 
 self.addEventListener("install", (event) => {

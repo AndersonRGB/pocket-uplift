@@ -1,6 +1,6 @@
 {
   "name": "Pocket Uplift",
-  "short_name": "Uplift",
+  "short_name": "Pocket Uplift",
   "description": "A lightweight wellbeing PWA for Roehampton students with a short daily check-in and explainable micro-actions.",
   "start_url": "./index.html",
   "scope": "./",
