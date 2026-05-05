@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pocket Uplift</title>
+    <meta
+      name="description"
+      content="Pocket Uplift is a lightweight wellbeing PWA for Roehampton students."
+    />
+    <link rel="icon" href="assets/icons/icon-192.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="assets/icons/icon-192.png" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="app-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header site-header--app">
+      <div class="header-copy">
+        <div class="brand-lockup" aria-label="Pocket Uplift">
+          <img
+            class="brand-logo"
+            src="assets/brand/pocket-uplift-logo.png"
+            alt=""
+            width="104"
+            height="104"
+          />
+          <h1 class="header-title">A 30-second check-in for quick wellbeing resets</h1>
+        </div>
+        <p class="tagline">
+          Private by design. No login. No diagnosis. Just explainable micro-actions that fit
+          your day.
+        </p>
+        <div class="hero-notes" aria-label="Product qualities">
+          <span class="hero-pill"><span class="hero-pill__icon" aria-hidden="true">🔒</span>Private on this device</span>
+          <span class="hero-pill"><span class="hero-pill__icon" aria-hidden="true">📋</span>Short explainable actions</span>
+          <span class="hero-pill"><span class="hero-pill__icon" aria-hidden="true">🕒</span>Quick support anytime</span>
+        </div>
+      </div>
+
+      <nav class="header-actions" aria-label="Primary">
+        <a class="nav-link" href="support.html">Wellbeing Support</a>
+      </nav>
+    </header>
+
+    <main id="main-content" class="page-shell">
+      <section class="display-options" aria-labelledby="display-options-title">
+        <div class="card display-options__card">
+          <div class="display-options__copy">
+            <p class="section-kicker">Accessibility</p>
+            <h2 id="display-options-title">Display options</h2>
+          </div>
+          <div class="settings-panel" aria-label="Display options">
+            <label class="toggle">
+              <input id="contrast-toggle" type="checkbox" />
+              <span>High contrast</span>
+            </label>
+            <label class="toggle">
+              <input id="font-toggle" type="checkbox" />
+              <span>Dyslexia-friendly font</span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="card card-hero" aria-labelledby="today-title">
+        <div>
+          <p class="section-kicker">Today's focus</p>
+          <h2 id="today-title">How are you feeling right now?</h2>
+          <p class="muted">
+            Complete the check-in and Pocket Uplift will suggest three short actions with clear
+            reasons.
+          </p>
+        </div>
+      </section>
+
+      <div class="layout">
+        <section class="card card-checkin" aria-labelledby="checkin-title">
+          <h2 id="checkin-title">Daily check-in</h2>
+          <form id="checkin-form" class="stack" aria-describedby="checkin-help">
+            <p id="checkin-help" class="muted compact">
+              Use the sliders and choose one context option to get three suggestions that fit your
+              current state.
+            </p>
+            <div class="slider-group">
+              <div class="label-row">
+                <label for="mood">Mood</label>
+                <output id="mood-value" for="mood">3</output>
+              </div>
+              <input
+                id="mood"
+                name="mood"
+                type="range"
+                min="1"
+                max="5"
+                value="3"
+                aria-describedby="mood-scale"
+              />
+              <div class="slider-scale" aria-hidden="true">
+                <span>Low</span>
+                <span>High</span>
+              </div>
+              <span id="mood-scale" class="sr-only">Mood scale from 1 low to 5 high</span>
+            </div>
+
+            <div class="slider-group">
+              <div class="label-row">
+                <label for="energy">Energy</label>
+                <output id="energy-value" for="energy">3</output>
+              </div>
+              <input
+                id="energy"
+                name="energy"
+                type="range"
+                min="1"
+                max="5"
+                value="3"
+                aria-describedby="energy-scale"
+              />
+              <div class="slider-scale" aria-hidden="true">
+                <span>Low</span>
+                <span>High</span>
+              </div>
+              <span id="energy-scale" class="sr-only">Energy scale from 1 low to 5 high</span>
+            </div>
+
+            <div class="slider-group">
+              <div class="label-row">
+                <label for="stress">Stress</label>
+                <output id="stress-value" for="stress">3</output>
+              </div>
+              <input
+                id="stress"
+                name="stress"
+                type="range"
+                min="1"
+                max="5"
+                value="3"
+                aria-describedby="stress-scale"
+              />
+              <div class="slider-scale" aria-hidden="true">
+                <span>Low</span>
+                <span>High</span>
+              </div>
+              <span id="stress-scale" class="sr-only">Stress scale from 1 low to 5 high</span>
+            </div>
+
+            <fieldset class="context-fieldset">
+              <legend>What best matches your situation right now?</legend>
+              <p class="muted compact">
+                Choose the option that best describes your current situation. This helps Pocket
+                Uplift suggest actions that fit your moment.
+              </p>
+              <div
+                id="context-options"
+                class="context-grid"
+                role="radiogroup"
+                aria-label="Context"
+              >
+                <label class="context-option">
+                  <input
+                    class="context-input"
+                    type="radio"
+                    name="context"
+                    value="any"
+                    checked
+                  />
+                  <span class="context-card">
+                    <strong>No preference</strong>
+                      <span>Use this if none of the options clearly fits.</span>
+                  </span>
+                </label>
+                <label class="context-option">
+                  <input
+                    class="context-input"
+                    type="radio"
+                    name="context"
+                    value="study"
+                  />
+                  <span class="context-card">
+                    <strong>Study</strong>
+                      <span>If you are studying, revising, or trying to focus.</span>
+                  </span>
+                </label>
+                <label class="context-option">
+                  <input
+                    class="context-input"
+                    type="radio"
+                    name="context"
+                    value="sleep"
+                  />
+                  <span class="context-card">
+                    <strong>Sleep</strong>
+                      <span>If you are winding down, resting, or getting ready to sleep.</span>
+                  </span>
+                </label>
+                <label class="context-option">
+                  <input
+                    class="context-input"
+                    type="radio"
+                    name="context"
+                    value="social"
+                  />
+                  <span class="context-card">
+                    <strong>Social</strong>
+                      <span>If you are with others or feel like connecting with someone.</span>
+                  </span>
+                </label>
+                <label class="context-option">
+                  <input
+                    class="context-input"
+                    type="radio"
+                    name="context"
+                    value="outdoors"
+                  />
+                  <span class="context-card">
+                    <strong>Outdoors</strong>
+                      <span>If you are outside or able to step outside.</span>
+                  </span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="button-row">
+              <button id="recommend-btn" class="button-primary" type="submit">
+                Get top 3 suggestions
+              </button>
+              <button id="reset-btn" class="button-secondary" type="button">
+                Clear local data
+              </button>
+            </div>
+            <p id="status-message" class="status-text" aria-live="polite" role="status"></p>
+          </form>
+        </section>
+
+        <section class="card card-results" aria-labelledby="results-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Recommendations</p>
+              <h2 id="results-title">Top 3 for right now</h2>
+              <p class="section-subcopy muted compact">Each action takes just a few minutes.</p>
+            </div>
+          </div>
+          <div id="recommend-root" class="results-stack">
+            <p class="empty-state">Complete your check-in to see recommendations.</p>
+          </div>
+        </section>
+
+        <section class="card card-progress" aria-labelledby="progress-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Progress</p>
+              <h2 id="progress-title">Your recent pattern</h2>
+            </div>
+          </div>
+          <div id="progress-root" class="progress-stack">
+            <p class="empty-state">Your recent activity will appear here after your first check-in.</p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <section class="page-shell support-cta" aria-labelledby="support-cta-title">
+      <div class="card support-cta__card">
+        <div>
+          <p class="section-kicker">Support</p>
+          <h2 id="support-cta-title">Need extra support?</h2>
+          <p class="muted support-cta__text">
+            Pocket Uplift is not a clinical service, but support resources are available if you
+            need more help.
+          </p>
+        </div>
+        <a class="nav-link support-cta__link" href="support.html">Wellbeing Support</a>
+      </div>
+    </section>
+
+    <footer class="site-footer page-shell">
+      <div class="site-footer__content">
+        <div class="site-footer__copy">
+          <p>Pocket Uplift · Final Year Project</p>
+          <p>Created by Anderson Ricardo Gomes Ballesteroz</p>
+          <p>Contact: <a class="inline-link" href="mailto:pocketuplift@gmail.com">pocketuplift@gmail.com</a></p>
+        </div>
+        <a
+          class="footer-link"
+          href="mailto:pocketuplift@gmail.com?subject=Pocket%20Uplift%20Feedback"
+        >
+          Send feedback
+        </a>
+      </div>
+    </footer>
+
+    <script src="storage.js"></script>
+    <script src="recommend.js"></script>
+    <script src="ui.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

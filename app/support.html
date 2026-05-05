@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Support | Pocket Uplift</title>
+    <link rel="icon" href="assets/icons/icon-192.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="assets/icons/icon-192.png" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="support-page app-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header site-header--support">
+      <div class="header-copy">
+        <div class="brand-lockup" aria-label="Pocket Uplift">
+          <img
+            class="brand-logo"
+            src="assets/brand/pocket-uplift-logo.png"
+            alt=""
+            width="104"
+            height="104"
+          />
+          <h1>Wellbeing Support</h1>
+        </div>
+        <p class="tagline">
+          Pocket Uplift is a non-clinical wellbeing tool. It does not provide diagnosis, treatment,
+          or crisis support.
+        </p>
+      </div>
+      <nav class="header-actions" aria-label="Primary">
+        <a class="nav-link" href="index.html">Back to check-in</a>
+      </nav>
+    </header>
+
+    <main id="main-content" class="page-shell">
+      <section class="card support-stack">
+        <article class="support-card">
+          <h2>When to use this app</h2>
+          <p>
+            Use Pocket Uplift for short daily check-ins, small wellbeing actions, and gentle
+            routines that fit student life. It is designed to support reflection, not to assess
+            mental health risk.
+          </p>
+          <p>
+            If you are worried about immediate safety, severe distress, or a crisis situation, do
+            not rely on this app alone. Use the services below.
+          </p>
+        </article>
+
+        <div class="support-layout">
+          <article class="support-card">
+            <h2>University wellbeing services</h2>
+            <p>
+              If you are a Roehampton student and need more support, Student Wellbeing Officers are
+              a good first point of contact. They can discuss wellbeing concerns, answer questions
+              about support options, and signpost or refer students to internal and external mental
+              wellbeing services depending on your needs.
+            </p>
+            <p>
+              Students can also access 15-minute Wellbeing Quick Query appointments, counselling
+              support, Mental Health Advisers, wellbeing rooms, and specialist services where
+              appropriate.
+            </p>
+            <p>
+              For questions about counselling or mental health advising, contact the Wellbeing Team
+              at
+              <a class="inline-link" href="mailto:wellbeing@roehampton.ac.uk">wellbeing@roehampton.ac.uk</a>
+              or call
+              <a class="inline-link" href="tel:+442083923653">0208 392 3653</a>
+              during working hours.
+            </p>
+            <p>
+              If you need urgent help on campus, call Campus Safety:
+              <a class="inline-link" href="tel:+442083923333">0208 392 3333</a>.
+            </p>
+            <div class="support-actions" aria-label="University wellbeing links">
+              <a
+                class="support-link"
+                href="https://roehamptonprod.sharepoint.com/sites/portal/nest/university-life/Pages/student-support.aspx"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Book a Wellbeing Quick Query
+              </a>
+              <a
+                class="support-link"
+                href="mailto:wellbeing@roehampton.ac.uk?subject=Wellbeing%20support%20enquiry"
+              >
+                Contact Wellbeing Team
+              </a>
+              <a
+                class="support-link"
+                href="https://reportandsupport.roehampton.ac.uk/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Report + Support
+              </a>
+            </div>
+          </article>
+
+          <article class="support-card">
+            <h2>NHS 111</h2>
+            <p>
+              For urgent medical advice that is not a life-threatening emergency, use
+              <a
+                class="inline-link"
+                href="https://111.nhs.uk"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                NHS 111 online
+              </a>
+              or call
+              <a class="inline-link" href="tel:111">111</a>
+              in the UK.
+            </p>
+          </article>
+
+          <article class="support-card">
+            <h2>Samaritans</h2>
+            <p>
+              If you need someone to talk to right now, contact Samaritans free on
+              <a class="inline-link" href="tel:116123">116 123</a>
+              or visit
+              <a
+                class="inline-link"
+                href="https://www.samaritans.org"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                samaritans.org
+              </a>.
+            </p>
+          </article>
+
+          <article class="support-card">
+            <h2>Emergency support</h2>
+            <p>
+              If there is immediate danger to you or someone else, call
+              <a class="inline-link" href="tel:999">999</a>
+              now or go to your
+              nearest A&amp;E.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer page-shell">
+      <div class="site-footer__content">
+        <div class="site-footer__copy">
+          <p>Pocket Uplift · Final Year Project</p>
+          <p>Created by Anderson Ricardo Gomes Ballesteroz</p>
+          <p>Contact: <a class="inline-link" href="mailto:pocketuplift@gmail.com">pocketuplift@gmail.com</a></p>
+        </div>
+        <a
+          class="footer-link"
+          href="mailto:pocketuplift@gmail.com?subject=Pocket%20Uplift%20Feedback"
+        >
+          Send feedback
+        </a>
+      </div>
+    </footer>
+
+    <script src="storage.js"></script>
+    <script>
+      (function applyStoredSettings() {
+        const settings = window.appStorage.loadSettings();
+        document.body.classList.toggle("high-contrast", Boolean(settings.highContrast));
+        document.body.classList.toggle("dyslexia-font", Boolean(settings.dyslexiaFont));
+      })();
+    </script>
+  </body>
+</html>

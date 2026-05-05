@@ -1,0 +1,43 @@
+name: ci
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop, main]
+
+jobs:
+  verify-structure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify scaffold files
+        shell: pwsh
+        run: |
+          $required = @(
+            "app/index.html",
+            "app/styles.css",
+            "app/app.js",
+            "app/recommend.js",
+            "app/storage.js",
+            "app/data/micro_actions.csv",
+            "pwa/manifest.json",
+            "pwa/service-worker.js",
+            "docs/evidence/README.md"
+          )
+
+          $missing = @()
+          foreach ($path in $required) {
+            if (-not (Test-Path $path)) {
+              $missing += $path
+            }
+          }
+
+          if ($missing.Count -gt 0) {
+            Write-Error "Missing required files: $($missing -join ', ')"
+            exit 1
+          }
+
+          Write-Host "Scaffold verification complete."
